@@ -48,7 +48,7 @@ The database can also be accessed via the browser at http://localhost:7474. The 
 
 ### Integrated Install
 To install the services alongside the [dependent-development](https://github.com/ryanlaycock/dependents-development) services, first follow the instructions listed there. Note the network will need creating with `docker network create backend`. If desired the Neo4j database can also be pre-populated with the data backup at http://ryanlaycock.uk/sna-neo4j-data.zip. Again, this must be done before the containers are created/while they are shut down. Once the dependents-development services are running, the SNA components can be installed as followed:
-1) Clone this repo or simply download the [docker-compose-standalone.yml](docker-compose-standalone.yml) file to your PC
+1) Clone this repo or simply download the [docker-compose-standalone.yml](docker-compose-standalone.yml) file to your computer
 2) Run `docker-compose -f docker-compose.yml up -d` (note the different compose file to standalone install). This file doesn't install the Neo4j database, and the containers can be accessed via differing ports where the dependent-development service has already used them.
 
 Installation is now complete. You can access the frontend from http://localhost/4200, and the gateway can be directly accessed from http://localhost:5502.
