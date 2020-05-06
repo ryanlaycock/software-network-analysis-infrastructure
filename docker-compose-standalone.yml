@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+    software-network-analysis:
+        container_name: software-network-analysis
+        image: ryanlaycock/software-network-analysis:1.0.0
+        ports:
+            - 5500:5000
+        networks:
+          backend:
+            aliases:
+              -  software-network-analysis
+        environment:
+            - PYTHONUNBUFFERED=1
+            - NEO4J_ADDR=bolt://neo4j:7687
+            - NEO4J_USER=neo4j
+            - NEO4J_PASS=ABC61190-2318-4FE0-B1A2-E89F9AA13D28
+            - POM_SEARCH_SERVICE_ADDR=http://entrypoint-proxy-service:80
+            - GATEWAY_ADDR=http://software-network-analysis-gateway:8080
+            - STANDALONE_MODE=True
+    dependency-network-analysis:
+        container_name: dependency-network-analysis
+        image: ryanlaycock/dependency-network-analysis:1.0.0
+        ports:
+            - 5501:5000
+        networks:
+          backend:
+            aliases:
+              -  dependency-network-analysis
+        environment:
+            - PYTHONUNBUFFERED=1
+            - NEO4J_ADDR=bolt://neo4j:7687
+            - NEO4J_USER=neo4j
+            - NEO4J_PASS=ABC61190-2318-4FE0-B1A2-E89F9AA13D28
+            - GATEWAY_ADDR=http://software-network-analysis-gateway:8080
+    software-network-analysis-gateway:
+        container_name: software-network-analysis-gateway
+        image: ryanlaycock/software-network-analysis-gateway:1.0.0
+        restart: always
+        ports:
+            - 5502:8080
+        networks:
+          backend:
+            aliases:
+              -  software-network-analysis-gateway
+        environment:
+            - SNA_ADDR=http://software-network-analysis:5000
+            - DNA_ADDR=http://dependency-network-analysis:5000
+    software-network-analysis-frontend:
+        container_name: software-network-analysis-frontend
+        image: ryanlaycock/software-network-analysis-frontend:1.0.0
+        ports:
+            - 80:4200
+        networks:
+          backend:
+            aliases:
+              -  software-network-analysis-frontend
+    neo4j:
+        container_name: neo4j
+        image: neo4j:4.0.4
+        ports:
+          - "7687:7687"
+          - "7474:7474"
+          - "7437:7437"
+        networks:
+          - backend
+        volumes:
+          - <absolute directory>/neo4j/data:/data
+          - <absolute directory>/neo4j/logs:/logs
+networks:
+    backend:
+        external: true
