@@ -41,6 +41,11 @@ Using the standard docker commands you can check the status of each running serv
 
 To stop the services simply run `docker-compose -f docker-compose-standalone.yml stop`, and they can be removed with `docker-compose -f docker-compose-standalone.yml rm`. It is also important that the database folders and files are initiated **before** the containers are running. Stop them if you wish to make changes to this. 
 
+The database can also be accessed via the browser at http://localhost:7474. The login details are default:
+- Connect URL: `bolt://localhost:7687`
+- Username: `neo4j`
+- Password: `ABC61190-2318-4FE0-B1A2-E89F9AA13D28`
+
 ### Integrated Install
 To install the services alongside the [dependent-development](https://github.com/ryanlaycock/dependents-development) services, first follow the instructions listed there. Note the network will need creating with `docker network create backend`. If desired the Neo4j database can also be pre-populated with the data backup at http://ryanlaycock.uk/sna-neo4j-data.zip. Again, this must be done before the containers are created/while they are shut down. Once the dependents-development services are running, the SNA components can be installed as followed:
 1) Clone this repo or simply download the [docker-compose-standalone.yml](docker-compose-standalone.yml) file to your PC
