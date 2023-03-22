@@ -4,7 +4,7 @@ Software Network Analysis is a series of microservices that perform social netwo
 
 ## Architecture
 A basic view of the components and how they communicate with one another:
-![alt text](BasicSystemArch.png "Basic System Architecture")
+![alt text](https://raw.githubusercontent.com/ryanlaycock/software-network-analysis-infrastructure/master/BasicSystemArch.png "Basic System Architecture")
 
 The source code and docker build for each of the projects can be found here:
 - Software Network Analysis
